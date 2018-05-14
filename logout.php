@@ -1,9 +1,11 @@
 <?php
 
-include_once("db.php");
-if (isset($_SESSION["admin"])) {
-	session_destroy();
-}
+session_start();
+
+unset($_SESSION["uid"]);
+
+unset($_SESSION["name"]);
+
 header("location:index.php");
 
 ?>
