@@ -64,8 +64,88 @@ if (!isset($_SESSION["admin"])) {
             <input type="file" name="file_pro" accept=".jpg .jpeg .png" value=""><br><br>
             <button type="submit" class="btn btn-primary"><i class="fa fa-lock">&nbsp;</i>submit</button>
         </form>
+        </label> 
+        <br><label>---------------------------------------------------------------<br></label>
+        <font size="10">History Customer</font> <br><br> 
+        <form action="history_customer.php" method="post"> 
+            <button type="submit" class="btn btn-primary"><i class="fa fa-lock">&nbsp;</i>Show History Customer</button> 
+        </form> 
+        
         <label>---------------------------------------------------------------<br></label>
+        <font size="10">PROMOTION ADMIN</font><br>
+        <?php
+                $sql = "SELECT * FROM promotion WHERE id=(SELECT MAX(id) FROM `promotion`)";
+                $check_query = $con->query($sql); 
+                $getPasent=$check_query->num_rows;
+                // echo "XXXX".$getPasent;
+                if ($check_query->num_rows > 0) {
+    // output data of each row
+                    while($row = $check_query->fetch_assoc()) {              	
+                    		echo " - Free Delivery : " . $row["freedelivery"]." - DecreaseNextTime : " . $row["decreasenext"]. "<br><br>";               
+                    }
+                }else{
+                    echo "no in database";
+                }
 
+            ?>
+
+        <form action="addPromotion.php" method="post">
+            <label>Free Delivery:</label><br>
+            <input type="text" name="freedelivery" id="freedelivery"/>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-lock">&nbsp;</i>submit</button>
+        </form>
+        <form action="addPromotion.php" method="post">
+            <label>Product DecreaseNext:</label><br>
+            <input type="text" name="decreasenext" id="decreasenext"/>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-lock">&nbsp;</i>submit</button>
+        </form>
+
+        <label>---------------------------------------------------------------<br></label>
+        <font size="10">CHANGE STATUS</font><br>
+        <label>Get Order ID:</label><br>
+        <form action="addorder.php" method="get">
+            <input type="text" name="orderid" id="orderid"/><br><br>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-lock">&nbsp;</i>submit</button>
+        </form>
+
+        <label>---------------------------------------------------------------<br></label>
+        <font size="10">HISTORY BILL</font><br>
+        <label>Get People ID:</label><br>
+        <form action="billid.php" method="post">
+            <input type="text" name="uidgetbill" id="uidgetbill"/><br><br>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-lock">&nbsp;</i>submit</button>
+        </form>
+
+
+
+
+        <label>---------------------------------------------------------------<br></label>
+         <font size="10">Update Stock</font><br>
+        <label> Id Product:</label><br>
+        <form action="update_stock.php" method="post">
+            <input type="text" name="idstock" id="idstock"/><br><br>
+            <label> Quantity product:</label><br>
+            <input type="text" name="numstock" id="numstock"/><br><br>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-lock">&nbsp;</i>submit</button>
+        </form>
+        <label>---------------------------------------------------------------<br></label>
+        <font size="10">Update Price</font><br>
+        <label>Id Product:</label><br>
+        <form action="update_price.php" method="post">
+            <input type="text" name="idprice" id="idprice"/><br><br>
+             <label>Price Product:</label><br>
+            <input type="text" name="price" id="price"/><br><br>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-lock">&nbsp;</i>submit</button>
+        </form>
+        <label>---------------------------------------------------------------<br></label>
+        </label>
+        <font size="10">Show Promotion</font><br>
+        <label>Input Promotion:</label><br>
+        <form action="promotion.php" method="post">
+            <input type="text" name="promo" id="promo" size = "110"/><br><br>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-lock">&nbsp;</i>submit</button>
+        </form>
+        <label>---------------------------------------------------------------<br></label>
         <form action="logout.php">
             <button type="submit" class="btn btn-primary"><i class="fa fa-lock">&nbsp;</i>logout</button>
         </form>
