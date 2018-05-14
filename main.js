@@ -299,7 +299,7 @@ $(document).ready(function(){
 			row.find('.total').val(total);
 		})
 		$('.total').each(function(){
-			net_total += ($(this).val()-0);
+			net_total += ($(this).val()-0)+10;
 		})
 		$('.net_total').html("Total : $ " +net_total);
 	}

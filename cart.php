@@ -26,7 +26,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a href="#" class="navbar-brand">PChana Store</a>
+				<a href="#" class="navbar-brand">Mobile Shop</a>
 			</div>
 		<div class="collapse navbar-collapse" id="collapse">
 			<ul class="nav navbar-nav">
@@ -81,9 +81,12 @@
 								<b>Total $500000</b>
 							</div> -->
 						</div> 
-					</div>
+						<div id="cart_checkout"></div>
+						<a href='confirm_bill.php'><button > Confirm Bill </button></a>
+						</div> 
 					<div class="panel-footer"></div>
 				</div>
+					</div>
 			</div>
 			<div class="col-md-2"></div>
 			

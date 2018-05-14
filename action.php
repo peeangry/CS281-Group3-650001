@@ -84,6 +84,7 @@ if(isset($_POST["getProduct"])){
 			$pro_price = $row['product_price'];
 			$pro_image = $row['product_image'];
 			// $pro_detail = $row['product_desc'];
+			$pro_stock = $row['product_stock'];
 		$pro_detail = 'xxxxxxx';
 			
 			echo "
@@ -95,8 +96,10 @@ if(isset($_POST["getProduct"])){
 										<a href=\"detail.php?varname=$pro_id\"><img src='product_images/$pro_image' style='width:200px; height:200px;'/></a>
 									
 								</div>
-								<div class='panel-heading'>$.$pro_price.00
+								<div class='panel-heading'>$.$pro_price.00 
 									<button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>AddToCart</button>
+									<a href='AddFavorite.php?varname=$pro_id'><button style='float:right;' class='btn btn-danger btn-xs' >Favorite </button></a>
+									 Avirible in Stock : $pro_stock
 								</div>
 							</div>
 						</div>	
@@ -141,6 +144,7 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || isse
 			$pro_title = $row['product_title'];
 			$pro_price = $row['product_price'];
 			$pro_image = $row['product_image'];
+			$pro_stock = $row['product_stock'];
 			echo "
 				<div class='col-md-4'>
 							<div class='panel panel-info'>
@@ -150,10 +154,13 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || isse
 								</div>
 								<div class='panel-heading'>$.$pro_price.00
 									<button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>AddToCart</button>
+									<a href='AddFavorite.php?varname=$pro_id'><button style='float:right;' class='btn btn-danger btn-xs' >Favorite </button></a>
+										 Avirible in Stock : $pro_stock
 								</div>
 							</div>
 						</div>	
 			";
+			
 		}
 	}
 	
@@ -310,11 +317,24 @@ if (isset($_POST["Common"])) {
 								<div class="col-md-2"><input type="text" class="form-control total" value="'.$product_price.'" readonly="readonly"></div>
 							</div>';
 				}
-				
+				$priceAll=0;
+				$sql = "SELECT * FROM cart,products WHERE p_id=product_id ";
+                          $check_query = $con->query($sql);
+                          if ($check_query) {
+                              while($row = $check_query->fetch_assoc()) {
+
+                               $priceAll=$priceAll+$row["product_price"];
+                              }
+                          }else{
+                             echo "no in database";
+                         }
+                 $priceAll=$priceAll+($priceAll*0.07);        
 				echo '<div class="row">
 							<div class="col-md-8"></div>
 							<div class="col-md-4">
-								<b class="net_total" style="font-size:20px;"> </b>
+								<b class="net_total" style="font-size:20px;"> </b><br>
+								<b style="font-size:20px;"> Total + VAT 7% : </b>
+								<b style="font-size:20px;">$ '.$priceAll.'</b>
 					</div>';
 				if (!isset($_SESSION["uid"])) {
 					echo '<input type="submit" style="float:right;" name="login_user_with_product" class="btn btn-info btn-lg" value="Ready to Checkout" >
@@ -328,7 +348,7 @@ if (isset($_POST["Common"])) {
 							<input type="hidden" name="cmd" value="_cart">
 							<input type="hidden" name="business" value="shoppingcart@khanstore.com">
 							<input type="hidden" name="upload" value="1">';
-							  
+							$allprice=0;  
 							$x=0;
 							$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,b.id,b.qty FROM products a,cart b WHERE a.product_id=b.p_id AND b.user_id='$_SESSION[uid]'";
 							$query = $con->query($sql) or die($con->connect_error);

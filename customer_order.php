@@ -22,7 +22,7 @@ if(!isset($_SESSION["uid"])){
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">	
 			<div class="navbar-header">
-				<a href="#" class="navbar-brand">PChana Store</a>
+				<a href="#" class="navbar-brand">Mobile Shop</a>
 			</div>
 			<ul class="nav navbar-nav">
 				<li><a href="index.php"><span class="glyphicon glyphicon-home"></span>Home</a></li>

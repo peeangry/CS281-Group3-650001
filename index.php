@@ -8,7 +8,7 @@ if(isset($_SESSION["uid"])){
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Mobile Store</title>
+		<title>PChana Store</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css"/>
 		<script src="js/jquery2.js"></script>
 		<script src="js/bootstrap.min.js"></script>
@@ -81,7 +81,7 @@ if(isset($_SESSION["uid"])){
 					<ul class="dropdown-menu">
 						<div style="width:300px;">
 							<div class="panel panel-primary">
-								<div class="panel-heading">infoForm Mobile Shop</div>
+								<div class="panel-heading">infoForm MobileShop</div>
 								<div class="panel-heading">
 									<form  action="emailinfo.php" method="post">
 										<label for="email">Email</label>
@@ -193,7 +193,7 @@ if(isset($_SESSION["uid"])){
 							</div>
 						</div> -->	
 					</div>
-					<div class="panel-footer">&copy; Mobile Shop</div>
+					<div class="panel-footer">&copy; PChana</div>
 
 				</div>
 			</div>

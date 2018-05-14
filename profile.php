@@ -1,15 +1,36 @@
 <?php
-
+include_once("db.php");
 session_start();
+if(!empty($_SESSION["uid"])){
+	$user=$_SESSION["name"];
+	              $sql = "SELECT * FROM text_promotion";
+                $check_query = $con->query($sql); 
+
+                if ($check_query->num_rows > 0) {
+    // output data of each row
+                    while($row = $check_query->fetch_assoc()) {
+                        $news = $row["news"];
+                    }
+                }else{
+                    echo "no in database";
+                }
+		echo '<script>alert("Hello '.$user.'\nToday We Have Promotion : '.$news.'");</script>';
+        
+}
 if(!isset($_SESSION["uid"])){
 	header("location:index.php");
 }
+
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
+		<!-- <?php
+	 //echo "<script>alert('PLease in num in --PRICE--');window.location='index.php'</script>";
+       //  exit();
+	?> -->
 		<meta charset="UTF-8">
-		<title>PChana Store</title>
+		<title>Mobile Shop</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css"/>
 		<script src="js/jquery2.js"></script>
 		<script src="js/bootstrap.min.js"></script>
@@ -22,6 +43,8 @@ if(!isset($_SESSION["uid"])){
 		</style>
 	</head>
 <body>
+
+
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">	
 			<div class="navbar-header">
@@ -66,11 +89,12 @@ if(!isset($_SESSION["uid"])){
 						</div>
 					</div>
 				</li>
-				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>info</a>
+				<li><a href="favorite.php"><span class="glyphicon glyphicon-heart"></span>favorite</a></li>
+				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bullhorn"></span>Info</a>
 					<ul class="dropdown-menu">
 						<div style="width:300px;">
 							<div class="panel panel-primary">
-								<div class="panel-heading">infoForm Mobile Shop</div>
+								<div class="panel-heading">Info Form PChanaStore</div>
 								<div class="panel-heading">
 									<form  action="emailinfo.php" method="post">
 										<label for="email">Email</label>
@@ -84,13 +108,20 @@ if(!isset($_SESSION["uid"])){
 						</div>
 					</ul>
 				</li>
+
+				<li><a href="order.php" class="dropdown-toggle" ><span class="glyphicon glyphicon-list-alt"></span>Status</a>
+					
+				</li>
+
 				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><?php echo "Hi,".$_SESSION["name"]; ?></a>
 					<ul class="dropdown-menu">
 						<li><a href="cart.php" style="text-decoration:none; color:blue;"><span class="glyphicon glyphicon-shopping-cart">Cart</a></li>
 						<li class="divider"></li>
-						<li><a href="customer_order.php" style="text-decoration:none; color:blue;">Orders</a></li>
+						<li><a href="reciept.php" style="text-decoration:none; color:blue;">History</a></li>
 						<li class="divider"></li>
-						<li><a href="" style="text-decoration:none; color:blue;">Chnage Password</a></li>
+						<li><a href="delivery.php" style="text-decoration:none; color:blue;">Delivery</a></li>
+						<li class="divider"></li>
+						<li><a href="bill_Cart.php" style="text-decoration:none; color:blue;">Price in Cart</a></li>
 						<li class="divider"></li>
 						<li><a href="logout.php" style="text-decoration:none; color:blue;">Logout</a></li>
 					</ul>
@@ -137,6 +168,7 @@ if(!isset($_SESSION["uid"])){
 						<div id="get_product">
 							<!--Here we get product jquery Ajax Request-->
 						</div>
+
 						<!--<div class="col-md-4">
 							<div class="panel panel-info">
 								<div class="panel-heading">Samsung Galaxy</div>
@@ -149,7 +181,7 @@ if(!isset($_SESSION["uid"])){
 							</div>
 						</div> -->
 					</div>
-					<div class="panel-footer">&copy; Mobile Shop</div>
+					<div class="panel-footer">&copy; PChana</div>
 				</div>
 			</div>
 			<div class="col-md-1"></div>

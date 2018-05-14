@@ -1,11 +1,16 @@
 <?php
 session_start();
-include_once("db.php");
-if(isset($_GET["varname"])){
-	$getVarname=$_GET["varname"];
+include_once("OO/orderOO.php");
+if(!isset($_SESSION["uid"])){
+	header("location:index.php");
 }
+// echo $_SESSION["uid"];
+$arrid=new orderOO($_SESSION["uid"]);
+// $arrid->getID();
+$arrid->printAllOrders();
+$arrid->getArr();
 ?>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -40,7 +45,7 @@ if(isset($_GET["varname"])){
 			<div class="col-md-8">
 
 				<?php
-	                $sql = "SELECT * FROM products WHERE product_id=$getVarname";
+	                $sql = "SELECT * FROM orders WHERE user_id=$uid";
 	                $check_query = $con->query($sql); 
 
 	                if ($check_query->num_rows > 0) {
@@ -53,7 +58,7 @@ if(isset($_GET["varname"])){
 	                        $infoImage=$row["product_image"];
 	                    }
 	                }else{	              
-	                    echo "<script>alert('No in database');window.location='index.php'</script>";
+	                    // echo "<script>alert('No in database');window.location='index.php'</script>";
 	                }
 	            ?>
 				<div class="panel-heading"></div>
@@ -80,89 +85,11 @@ if(isset($_GET["varname"])){
 
 
 			</div>
-			<!-- <div class="col-md-2"></div> -->
-			
+			<div class="col-md-2"></div>
 		</div>
 	</div>
-	<?php
-				$limit = 3;
-	if(isset($_POST["setPage"])){
-		$pageno = $_POST["pageNumber"];
-		$start = ($pageno * $limit) - $limit;
-	}else{
-		$start = 0;
-	}
-	// echo $getVarname;
-	$sql = "SELECT * FROM products WHERE product_id=$getVarname";
-                $check_query = $con->query($sql); 
-                $getPasent=$check_query->num_rows;
-                // echo "XXXX".$getPasent;
-                if ($check_query->num_rows > 0) {
-    // output data of each row
-                    while($row = $check_query->fetch_assoc()) {              	
-                    		$cat=$row["product_cat"];               
-                    }
-                }else{
-                    echo "no in database";
-                }
-     // echo $cat;           
-
-	$product_query = "SELECT * FROM products WHERE product_cat=$cat LIMIT $start,$limit " ;
-	$run_query = $con->query($product_query) or die($con->connect_error);
-	if($run_query->num_rows > 0){
-		while($row = $run_query->fetch_array(MYSQLI_ASSOC)){
-			$pro_id    = $row['product_id'];
-			$pro_cat   = $row['product_cat'];
-			$pro_brand = $row['product_brand'];
-			$pro_title = $row['product_title'];
-			$pro_price = $row['product_price'];
-			$pro_image = $row['product_image'];
-			// $pro_detail = $row['product_desc'];
-			$pro_stock = $row['product_stock'];
-		$pro_detail = 'xxxxxxx';
-			
-			echo "
-						<div class='col-md-4'>
-							<div class='panel panel-info'>
-								<div class='panel-heading'>$pro_title</div>
-								<div class='panel-body'>
-
-										<a href=\"detail.php?varname=$pro_id\"><img src='product_images/$pro_image' style='width:200px; height:200px;'/></a>
-									
-								</div>
-								
-							</div>
-						</div>	
-				</div>
-				
-				<script>
-				
-					$( document ).ready(function() {
-						$( '#img_$pro_id' ).hover(
-						  function() {
-							console.log('in');
-						  }, function() {
-							console.log('out');
-						  }
-						)
-					});
-					
-				</script>
-			";
-		}
-	}
-			?>
 </body>
-</html>
-
-
-
-
-
-
-
-
-
+</html> -->
 
 
 
